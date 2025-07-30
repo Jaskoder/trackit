@@ -7,7 +7,7 @@ const {
 } = React;
 const { createRoot } = ReactDOM;
 const { Router, Route, Link } = kRouter;
-
+const home_path = window.location.pathname;
 const formatNumber = (number) => number.toLocaleString("en-US");
 
 const formatDate = (timestamp) => {
@@ -277,7 +277,7 @@ function TransactionsList({ data, title, onClick, setToEdit }) {
 function NavBar() {
     const [activeRoute, setActiveRoute] = useState(window.location.pathname);
     const links = [
-        { path: "/", icon: "house", text: "Dashboard" },
+        { path: home_path, icon: "house", text: "Dashboard" },
         { path: "/incomes", icon: "cash-stack", text: "Income" },
         { path: "/outcomes", icon: "credit-card", text: "Outcome" }
     ];
@@ -400,7 +400,7 @@ function App() {
             {alert.message && <AlertBox icon={alert.icon} message={alert.message}></AlertBox>}
             {liClick && <EditForm transaction={transToEdit} onCancel={setLiClick} handleOperation={handleTransactionOps}></EditForm>}
             <Router>
-                <Route path="/">
+                <Route path={home_path}>
                     <h1 className="title main">Dashboard</h1>
                     <DashBoard incomes={incomes} outcomes={outcomes}></DashBoard>
                     <TransactionsList title="Recent Transactions" data={allTransactions} onClick={setLiClick} setToEdit={setTransToEdit}></TransactionsList>
